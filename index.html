@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<!--
+	# Starting local webserver with nodejs http-server tool:
+	# open cmd
+	# cd to project folder
+	# run command: http-server -p8888 
+	# in Microsoft Edge open http://localhost:8888/ (or http://127.0.0.1:8888/)
+-->
+
+<html>
+	<head>
+		<title>Microsoft Edge with Windows Hello Face Authentication</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-type" content="text/html" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="./styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="credentials">
+			<h1>Web Authentication: Please sign in to access your account</h1>
+			<div id="field">
+				<input name="email" id= "emailID" type="email" value="johndoe@example.com"/>
+				<input name="password" id= "passwordID" type="password" value="password">
+				<button id="passwordSignin">Sign In</button>
+				<button id="helloSignin" style="display:none;">Sign in with Windows Hello</button>
+				<a href="#" id="passwordLink" style="display:none;">Sign in with password</a>
+				<a href="#" id="helloLink" style="display:none">Sign in with Windows Hello</a>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="mswebauthn.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<script type="text/javascript">
+			(function() {
+				console.log(window.sessionStorage);
+				if(window.sessionStorage && window.sessionStorage.getItem("credentialID")) {
+					hidePassword();
+				} else {
+					addPassword();
+				}
+			})();
+
+			function addPassword() {
+				$("#passwordID").css('display', 'block');
+				$("#passwordSignin").css('display', 'block');
+				$("#helloSignin").css('display', 'none');
+				$("#passwordLink").css('display', 'none');
+			}
+
+			function hidePassword() {
+				$("#passwordID").css('display', 'none');
+				$("#passwordSignin").css('display', 'none');
+				$("#helloSignin").css('display', 'block');
+				$("#passwordLink").css('display', 'block');
+
+			}
+			
+			$("#passwordSignin").click(function(event) {
+				signInWithPassword();
+			});
+			
+			$("#helloSignin").click(function(event) {
+				getAssertion();
+			});
+
+			$("#passwordLink").click(function(event) {
+				addPassword();
+				$("#helloLink").css('display', 'block');
+			});
+
+			$("#helloLink").click(function(event) {
+				hidePassword();
+				$("#helloLink").css('display', 'none');
+			});
+		</script>
+	</body>		
+</html>

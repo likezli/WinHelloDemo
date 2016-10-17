@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Windows Hello Support</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-type" content="text/html" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="./styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	</head>
+	<body>
+			<div id="container">
+				<div id="helloLogo">
+					<img width="480" height="360" src="hello.png" alt="Windows Hello Logo">
+				</div>
+
+				<div id="helloText">
+					<h2>Windows Hello</h2> 
+					<p>Good news, your device supports Windows Hello and you can use it to authenticate with this demo site. 	With Windows Hello, you can log into this site on this PC without a password. </p>
+					<p>Do you want to enable Windows Hello for your next sign in? </p>
+					<button id="later">Maybe Later</button>
+					<button id="useHello">Start Using Windows Hello</button>
+				</div>
+			</div>
+
+			<div id="setupWindowsHello">
+				<h2>You need to setup Windows Hello</h2>
+				<p>Select the <strong>Start</strong> button, then select <strong>Settings > Account > Sign-in options</strong> to set up Windows Hello. Under <strong>Windows Hello</strong>, you'll see options for face, fingerprint, or iris if your device has a fingerprint reader or a camera that supports it. Once you're set up, you'll be able to sign in with quick swipe or glance.</p>
+				<button id="okay">Okay</button> 
+			</div>
+
+			<script type="text/javascript" src="mswebauthn.js"></script>
+			<script type="text/javascript" src="script.js"></script>
+			<script type="text/javascript">
+				function showSetupWindowsHelloDialog(flag) {
+					if(flag) {
+						$("#setupWindowsHello").css('display', 'block');
+						$("#container").css('display', 'none');
+					} else {
+						$("#setupWindowsHello").css('display', 'none');
+						$("#container").css('display', 'block');
+					}
+				}
+				
+				$("#useHello").click(function(event) {
+					makeCredential();
+				});
+				
+				$("#later").click(function(event) {
+					window.location = 'inbox.html';
+				});
+
+				$("#okay").click(function(event) {
+					showSetupWindowsHelloDialog(false);
+				});
+			</script>
+	</body>
+	
+</html>

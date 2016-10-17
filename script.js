@@ -50,6 +50,8 @@ function makeCredential() {
 
                	
                 if (window.sessionStorage) {
+                    var na = $("#emailID").text();
+                    window.sessionStorage.setItem('theName', na);
                     window.sessionStorage.setItem('credentialID', creds.credential.id);
                     window.sessionStorage.setItem('algorithm', creds.algorithm);
                     window.sessionStorage.setItem ('publicKey', creds.publicKey.n);
